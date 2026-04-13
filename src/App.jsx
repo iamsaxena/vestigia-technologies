@@ -383,7 +383,7 @@ function Nav({page,setPage,setShowAuth}){
         <div style={{width:22,height:2,background:DARK,marginBottom:5,borderRadius:2}}/><div style={{width:22,height:2,background:DARK,marginBottom:5,borderRadius:2}}/><div style={{width:22,height:2,background:DARK,borderRadius:2}}/>
       </button>
     </div>
-    {mob&&<div style={{padding:"12px 24px 20px",borderTop:"0.5px solid #e2e8f0",display:"flex",flexDirection:"column",gap:4"}}>
+    {mob&&<div style={{padding:"12px 24px 20px",borderTop:"0.5px solid #e2e8f0",display:"flex",flexDirection:"column",gap:4}}>
       {[["courses","Courses"],["about","Founder"]].map(([p,l])=><button key={p} onClick={()=>{setPage(p);setMob(false);}} style={{padding:"10px 14px",borderRadius:8,border:"none",background:"transparent",color:G,fontSize:14,cursor:"pointer",textAlign:"left"}}>{l}</button>)}
       {user&&<button onClick={()=>{setPage("dashboard");setMob(false);}} style={{padding:"10px 14px",borderRadius:8,border:"none",background:"transparent",color:G,fontSize:14,cursor:"pointer",textAlign:"left"}}>Dashboard</button>}
       {requireRole(user,"admin")&&<button onClick={()=>{setPage("admin");setMob(false);}} style={{padding:"10px 14px",borderRadius:8,border:"none",background:"transparent",color:R,fontSize:14,cursor:"pointer",textAlign:"left"}}>Admin</button>}
