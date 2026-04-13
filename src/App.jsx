@@ -290,66 +290,91 @@ function PaymentModal(){
   </div>;
 }
 
-/* ─── AUTH MODAL ─────────────────────────────────────────── */
+/* ─── AUTH MODAL (REDESIGNED) ──────────────────────────── */
 function AuthModal({onClose,onLogin}){
   const{dispatch}=useApp();
-  const[step,setStep]=useState("login");
-  const[otp,setOtp]=useState(["","","","",""]);
+  const[step,setStep]=useState("start");
+  const[cc,setCc]=useState("+91");
   const[mobile,setMobile]=useState("");
+  const[otp,setOtp]=useState(["","","","",""]);
   const[name,setName]=useState("");
   const[avatar,setAvatar]=useState("🧑‍💻");
+  const[sending,setSending]=useState(false);
   const r0=useRef(),r1=useRef(),r2=useRef(),r3=useRef(),r4=useRef();
   const refs=[r0,r1,r2,r3,r4];
+  const CCS=["+91","+1","+44","+61","+971","+65","+60","+66","+880","+94"];
   const handleOtp=(i,v)=>{if(!/^\d?$/.test(v))return;const n=[...otp];n[i]=v;setOtp(n);if(v&&i<4)refs[i+1].current?.focus();};
   const login=(role="student")=>{
-    const user={id:"u-"+Date.now(),name:san(name)||"Learner",avatar,role};
+    const user={id:"u-"+Date.now(),name:san(name)||"Learner",avatar,role,mobile:cc+mobile};
     dispatch({type:"SET_USER",v:user});
-    dispatch({type:"TOAST",v:{kind:"success",msg:`Welcome${role==="admin"?" (Admin)":""}, ${user.name}!`}});
+    dispatch({type:"TOAST",v:{kind:"success",msg:`Welcome, ${user.name}!`}});
     onClose();onLogin?.(role);
   };
-  /* NOTE: isDev=true for demo. Set to false before going live. */
+  const sendOtp=async()=>{
+    if(mobile.length<7)return;
+    setSending(true);
+    await new Promise(r=>setTimeout(r,900));
+    setSending(false);
+    setStep("otp");
+  };
+  const verifyOtp=()=>{if(otp.join("").length===5)setStep("profile");};
   const isDev=true;
-  const inp={width:"100%",padding:"11px 14px",borderRadius:10,border:"1.5px solid #e2d9f3",fontSize:14,boxSizing:"border-box",background:"#faf8ff",color:"#1e1048",outline:"none"};
-  const steps=["login","otp","profile"];const idx=steps.indexOf(step);
-  return<div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,zIndex:200,display:"flex",alignItems:"center",justifyContent:"center",padding:20,background:"rgba(15,10,46,0.6)"}}>
-    <div style={{width:"100%",maxWidth:420,background:"#fff",borderRadius:24,overflow:"hidden"}}>
-      <div style={{background:"linear-gradient(135deg,#1e1048,#3b1fa8)",padding:"28px 28px 24px",position:"relative"}}>
-        <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
-          <div style={{width:40,height:40,borderRadius:11,background:"rgba(255,255,255,0.15)",display:"flex",alignItems:"center",justifyContent:"center",color:"#c4b5fd",fontWeight:700,fontSize:18}}>V</div>
-          <div><div style={{color:"#fff",fontWeight:600,fontSize:15}}>Vestigia Technologies</div><div style={{color:"#a78bfa",fontSize:11}}>Stay ahead with Vestigia</div></div>
+  const steps=["start","otp","profile"];
+  const idx=steps.indexOf(step);
+  return<div onClick={e=>e.target===e.currentTarget&&onClose()} style={{position:"fixed",inset:0,zIndex:200,display:"flex",alignItems:"center",justifyContent:"center",padding:20,background:"rgba(15,10,46,0.65)",backdropFilter:"blur(6px)"}}>
+    <div style={{width:"100%",maxWidth:440,background:"#fff",borderRadius:28,overflow:"hidden",boxShadow:"0 24px 80px rgba(91,61,245,0.22)"}}>
+      <div style={{background:`linear-gradient(135deg,${DARK},#2d1a6e)`,padding:"32px 32px 28px",position:"relative"}}>
+        <button onClick={onClose} style={{position:"absolute",top:16,right:16,width:32,height:32,borderRadius:"50%",background:"rgba(255,255,255,0.1)",border:"none",color:"rgba(255,255,255,0.7)",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center"}}>×</button>
+        <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:20}}>
+          <img src="/logo.png" alt="V" style={{height:44,width:44,objectFit:"contain",borderRadius:12}} onError={e=>{e.target.style.display="none";e.target.parentNode.insertAdjacentHTML("afterbegin",`<div style="width:44px;height:44px;borderRadius:12px;background:rgba(255,255,255,0.15);display:flex;alignItems:center;justifyContent:center;color:#c4b5fd;fontWeight:700;fontSize:20px">V</div>`);}}/>
+          <div><div style={{color:"#fff",fontWeight:700,fontSize:18}}>Vestigia Technologies</div><div style={{color:"#a78bfa",fontSize:12}}>India's AI-first learning platform</div></div>
         </div>
-        <div style={{display:"flex",gap:6}}>{steps.map((s,i)=><div key={s} style={{height:3,borderRadius:99,background:i<=idx?"#a78bfa":"rgba(255,255,255,0.2)",flex:i===idx?2:1,transition:"all 0.3s"}}/>)}</div>
-        <button onClick={onClose} style={{position:"absolute",top:16,right:16,width:30,height:30,borderRadius:"50%",background:"rgba(255,255,255,0.12)",border:"none",color:"#c4b5fd",cursor:"pointer",fontSize:16}}>×</button>
+        <div style={{display:"flex",gap:6}}>{steps.map((s,i)=><div key={s} style={{height:3,borderRadius:99,background:i<=idx?"#a78bfa":"rgba(255,255,255,0.15)",flex:i===idx?2:1,transition:"all 0.4s"}}/>)}</div>
       </div>
-      <div style={{padding:"28px 28px 32px"}}>
-        {step==="login"&&<>
-          <div style={{fontSize:20,fontWeight:600,color:"#1e1048",marginBottom:4}}>Welcome back!</div>
-          <div style={{fontSize:13,color:"#6b6b8a",marginBottom:24}}>10,000+ learners trust Vestigia</div>
-          <button onClick={()=>setStep("profile")} style={{width:"100%",padding:"12px 16px",borderRadius:12,border:"1.5px solid #e2d9f3",background:"#faf8ff",display:"flex",alignItems:"center",justifyContent:"center",gap:10,cursor:"pointer",marginBottom:10,fontSize:14,color:"#1e1048",fontWeight:500}}>
-            <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      <div style={{padding:"32px 32px 36px"}}>
+        {step==="start"&&<>
+          <div style={{fontSize:22,fontWeight:700,color:DARK,marginBottom:4}}>Get started free</div>
+          <div style={{fontSize:13,color:G,marginBottom:28}}>Join 12,000+ learners building AI & Product skills</div>
+          <button onClick={()=>setStep("profile")} style={{width:"100%",padding:"14px 16px",borderRadius:14,border:"1.5px solid #e2e8f0",background:"#fafafa",display:"flex",alignItems:"center",justifyContent:"center",gap:12,cursor:"pointer",marginBottom:20,fontSize:15,color:DARK,fontWeight:500}}>
+            <svg width="20" height="20" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.71c-.18-.54-.282-1.117-.282-1.71s.102-1.17.282-1.71V4.958H.957C.347 6.173 0 7.548 0 9s.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
             Continue with Google
           </button>
-          {isDev&&<button onClick={()=>login("admin")} style={{width:"100%",padding:"11px 16px",borderRadius:12,border:"1.5px solid #fca5a5",background:"#fff5f5",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",marginBottom:16,fontSize:13,color:R,fontWeight:500}}>Login as Admin (Demo)</button>}
-          <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:14}}><div style={{flex:1,height:1,background:"#e2d9f3"}}/><span style={{fontSize:12,color:"#9ca3af"}}>or mobile OTP</span><div style={{flex:1,height:1,background:"#e2d9f3"}}/></div>
-          <div style={{display:"flex",gap:8,marginBottom:12}}><select style={{padding:"11px 10px",borderRadius:10,border:"1.5px solid #e2d9f3",background:"#faf8ff",color:"#1e1048",fontSize:14,width:90,flexShrink:0}}><option>+91</option><option>+1</option><option>+44</option></select><input placeholder="Mobile number" value={mobile} onChange={e=>setMobile(e.target.value)} style={{...inp,marginBottom:0}}/></div>
-          <button onClick={()=>setStep("otp")} style={{width:"100%",padding:"12px",borderRadius:12,background:P,border:"none",color:"#fff",fontSize:14,fontWeight:600,cursor:"pointer"}}>Send OTP</button>
+          <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:20}}><div style={{flex:1,height:1,background:"#e2e8f0"}}/><span style={{fontSize:12,color:G,fontWeight:500}}>or sign in with mobile</span><div style={{flex:1,height:1,background:"#e2e8f0"}}/></div>
+          <div style={{display:"flex",gap:8,marginBottom:16}}>
+            <select value={cc} onChange={e=>setCc(e.target.value)} style={{padding:"12px 10px",borderRadius:12,border:"1.5px solid #e2e8f0",background:"#fafafa",color:DARK,fontSize:14,width:88,flexShrink:0,cursor:"pointer"}}>
+              {CCS.map(c=><option key={c}>{c}</option>)}
+            </select>
+            <input value={mobile} onChange={e=>setMobile(e.target.value.replace(/\D/g,""))} placeholder="Mobile number" maxLength={12} style={{flex:1,padding:"12px 14px",borderRadius:12,border:"1.5px solid #e2e8f0",background:"#fafafa",fontSize:14,color:DARK,outline:"none"}}/>
+          </div>
+          <button onClick={sendOtp} disabled={sending||mobile.length<7} style={{width:"100%",padding:"14px",borderRadius:14,background:mobile.length>=7?P:"#c7bcff",border:"none",color:"#fff",fontSize:15,fontWeight:600,cursor:mobile.length>=7?"pointer":"not-allowed"}}>
+            {sending?"Sending OTP...":"Send OTP →"}
+          </button>
+          {isDev&&<button onClick={()=>login("admin")} style={{width:"100%",padding:"8px",marginTop:10,background:"none",border:"none",color:"#cbd5e1",fontSize:11,cursor:"pointer",textDecoration:"underline"}}>Dev: Admin login</button>}
         </>}
         {step==="otp"&&<>
-          <div style={{fontSize:20,fontWeight:600,color:"#1e1048",marginBottom:4}}>Verify OTP</div>
-          <div style={{fontSize:13,color:"#6b6b8a",marginBottom:24}}>Sent to {mobile||"+91 98XXXXXXXX"}</div>
-          <div style={{display:"flex",gap:8,justifyContent:"center",marginBottom:24}}>{otp.map((v,i)=><input key={i} ref={refs[i]} maxLength={1} value={v} onChange={e=>handleOtp(i,e.target.value)} style={{width:50,height:56,textAlign:"center",fontSize:24,fontWeight:600,borderRadius:12,border:`2px solid ${v?P:"#e2d9f3"}`,background:v?PL:"#faf8ff",color:"#1e1048",outline:"none"}}/>)}</div>
-          <button onClick={()=>setStep("profile")} style={{width:"100%",padding:"12px",borderRadius:12,background:P,border:"none",color:"#fff",fontSize:14,fontWeight:500,cursor:"pointer",marginBottom:12}}>Verify & Continue</button>
-          <div style={{textAlign:"center"}}><button onClick={()=>setStep("login")} style={{background:"none",border:"none",color:P,fontSize:13,cursor:"pointer"}}>Change number</button></div>
+          <div style={{fontSize:22,fontWeight:700,color:DARK,marginBottom:4}}>Verify your number</div>
+          <div style={{fontSize:13,color:G,marginBottom:6}}>We sent a 5-digit OTP to</div>
+          <div style={{fontSize:15,fontWeight:600,color:P,marginBottom:28}}>{cc} {mobile}</div>
+          <div style={{display:"flex",gap:10,justifyContent:"center",marginBottom:10}}>
+            {otp.map((v,i)=><input key={i} ref={refs[i]} maxLength={1} value={v} onChange={e=>handleOtp(i,e.target.value)} onKeyDown={e=>{if(e.key==="Backspace"&&!v&&i>0)refs[i-1].current?.focus();}} style={{width:52,height:60,textAlign:"center",fontSize:26,fontWeight:700,borderRadius:14,border:`2.5px solid ${v?P:"#e2e8f0"}`,background:v?PL:"#fafafa",color:DARK,outline:"none"}}/>)}
+          </div>
+          <div style={{textAlign:"center",fontSize:12,color:G,marginBottom:24}}>
+            <button onClick={()=>setStep("start")} style={{background:"none",border:"none",color:P,cursor:"pointer",fontSize:12,fontWeight:500}}>Change number</button>
+            {" · "}
+            <button onClick={sendOtp} style={{background:"none",border:"none",color:P,cursor:"pointer",fontSize:12,fontWeight:500}}>Resend OTP</button>
+          </div>
+          <button onClick={verifyOtp} disabled={otp.join("").length<5} style={{width:"100%",padding:"14px",borderRadius:14,background:otp.join("").length===5?P:"#c7bcff",border:"none",color:"#fff",fontSize:15,fontWeight:600,cursor:otp.join("").length===5?"pointer":"not-allowed"}}>Verify & Continue →</button>
         </>}
         {step==="profile"&&<>
-          <div style={{fontSize:20,fontWeight:600,color:"#1e1048",marginBottom:4}}>Complete Profile</div>
-          <div style={{background:"#faf8ff",border:"1.5px solid #e2d9f3",borderRadius:14,padding:14,marginBottom:16}}>
-            <div style={{fontSize:11,fontWeight:500,color:"#6b6b8a",marginBottom:10,textTransform:"uppercase",letterSpacing:0.5}}>Pick your avatar</div>
-            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{["🧑‍💻","👩‍💻","🧑‍🎓","👩‍🎓","🦊","🚀"].map(a=><button key={a} onClick={()=>setAvatar(a)} style={{width:44,height:44,fontSize:22,borderRadius:11,border:`2px solid ${avatar===a?P:"#e2d9f3"}`,background:avatar===a?PL:"#fff",cursor:"pointer"}}>{a}</button>)}</div>
+          <div style={{fontSize:22,fontWeight:700,color:DARK,marginBottom:4}}>Set up your profile</div>
+          <div style={{fontSize:13,color:G,marginBottom:20}}>Quick setup — update everything later in your profile</div>
+          <div style={{background:"#f8f7ff",border:"1.5px solid #e2d9f3",borderRadius:16,padding:16,marginBottom:16}}>
+            <div style={{fontSize:11,fontWeight:600,color:P,textTransform:"uppercase",letterSpacing:0.5,marginBottom:12}}>Choose your avatar</div>
+            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{["🧑‍💻","👩‍💻","🧑‍🎓","👩‍🎓","🦊","🚀","🧠","⚡"].map(a=><button key={a} onClick={()=>setAvatar(a)} style={{width:46,height:46,fontSize:22,borderRadius:12,border:`2px solid ${avatar===a?P:"#e2d9f3"}`,background:avatar===a?PL:"#fff",cursor:"pointer"}}>{a}</button>)}</div>
           </div>
-          <input placeholder="Full name" value={name} onChange={e=>setName(e.target.value)} style={{...inp,marginBottom:10}}/>
-          <input placeholder="City, State" style={{...inp,marginBottom:16}}/>
-          <button onClick={()=>login("student")} style={{width:"100%",padding:"13px",borderRadius:12,background:P,border:"none",color:"#fff",fontSize:15,fontWeight:600,cursor:"pointer"}}>{avatar} Start Learning →</button>
+          <input placeholder="Your full name" value={name} onChange={e=>setName(e.target.value)} style={{width:"100%",padding:"12px 14px",borderRadius:12,border:"1.5px solid #e2e8f0",background:"#fafafa",fontSize:14,color:DARK,outline:"none",marginBottom:16,boxSizing:"border-box"}}/>
+          <button onClick={()=>login("student")} style={{width:"100%",padding:"14px",borderRadius:14,background:P,border:"none",color:"#fff",fontSize:15,fontWeight:600,cursor:"pointer"}}>{avatar} Start Learning →</button>
+          <div style={{textAlign:"center",fontSize:11,color:G,marginTop:12}}>By joining you agree to our <span style={{color:P,cursor:"pointer"}}>Terms</span> & <span style={{color:P,cursor:"pointer"}}>Privacy Policy</span></div>
         </>}
       </div>
     </div>
