@@ -50,7 +50,7 @@ const SEED=[
   {id:3,title:"Build with Claude API",tag:"AI",mrp:2999,price:0,offerPrice:null,free:true,enrolled:3400,rating:4.7,weeks:4,img:"🧠",color:A,status:"active",maxSeats:100,launch:"2025-01-15",start:"2025-01-15T20:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["API Basics","Prompt Engineering","RAG Systems","Deployment"]},
   {id:4,title:"Data Storytelling for PMs",tag:"Analytics",mrp:4999,price:2499,offerPrice:2499,free:false,enrolled:560,rating:4.8,weeks:5,img:"📊",color:B,status:"upcoming",maxSeats:12,launch:"2025-09-01",start:"2025-09-01T19:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["SQL for PMs","Metrics","Dashboard Design","A/B Testing"]},
   {id:5,title:"Career Acceleration: Tier-2 to Tech",tag:"Career",mrp:1999,price:0,offerPrice:null,free:true,enrolled:5200,rating:4.9,weeks:3,img:"🚀",color:R,status:"active",maxSeats:200,launch:"2025-01-01",start:"2025-01-01T18:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["Resume Reboot","LinkedIn Strategy","Interview Playbook"]},
-  {id:6,title:"GenAI for Non-Technical Founders",tag:"AI",mrp:3999,price:1999,offerPrice:1999,free:false,enrolled:720,rating:4.7,weeks:4,img:"💡",color:P,status:"upcoming",maxSeats:15,launch:"2025-10-01",start:"2025-10-01T19:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["AI Landscape","Use-case Mapping","Vendor Selection","ROI"]}
+  {id:6,title:"GenAI for Non-Technical About Uss",tag:"AI",mrp:3999,price:1999,offerPrice:1999,free:false,enrolled:720,rating:4.7,weeks:4,img:"💡",color:P,status:"upcoming",maxSeats:15,launch:"2025-10-01",start:"2025-10-01T19:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["AI Landscape","Use-case Mapping","Vendor Selection","ROI"]}
 ];
 const BLOGS=[
   {title:"Why Tier-2 India is the next EdTech frontier",tag:"EdTech",date:"Mar 28, 2025",read:"5 min"},
@@ -368,7 +368,7 @@ function Nav({page,setPage,setShowAuth}){
       </button>
       <div style={{flex:1}}/>
       <div style={{display:"flex",alignItems:"center",gap:4}} className="desk-nav">
-        {[["courses","Courses"],["about","Founder"]].map(([p,l])=><button key={p} onClick={()=>setPage(p)} style={{padding:"6px 14px",borderRadius:8,border:"none",background:page===p?PL:"transparent",color:page===p?P:G,fontSize:13,cursor:"pointer",fontWeight:page===p?500:400}}>{l}</button>)}
+        {[["courses","Courses"],["about","About Us"]].map(([p,l])=><button key={p} onClick={()=>setPage(p)} style={{padding:"6px 14px",borderRadius:8,border:"none",background:page===p?PL:"transparent",color:page===p?P:G,fontSize:13,cursor:"pointer",fontWeight:page===p?500:400}}>{l}</button>)}
         <a href="https://chromewebstore.google.com" target="_blank" rel="noreferrer" style={{display:"flex",alignItems:"center",gap:5,padding:"6px 12px",borderRadius:8,border:"1px solid #e2e8f0",background:"#f8fafc",color:"#475569",fontSize:13,fontWeight:500,textDecoration:"none",whiteSpace:"nowrap"}}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke={P} strokeWidth="1.8"/><circle cx="12" cy="12" r="4" fill={P}/><path d="M12 8c2.2 0 4 1.8 4 4H22M12 8c-2.2 0-4 1.8-4 4l-5.2 9M12 8V2" stroke={P} strokeWidth="1.8" strokeLinecap="round"/></svg>
           AI Tools
@@ -383,7 +383,7 @@ function Nav({page,setPage,setShowAuth}){
       </button>
     </div>
     {mob&&<div style={{padding:"12px 24px 20px",borderTop:"0.5px solid #e2e8f0",display:"flex",flexDirection:"column",gap:4}}>
-      {[["courses","Courses"],["about","Founder"]].map(([p,l])=><button key={p} onClick={()=>{setPage(p);setMob(false);}} style={{padding:"10px 14px",borderRadius:8,border:"none",background:"transparent",color:G,fontSize:14,cursor:"pointer",textAlign:"left"}}>{l}</button>)}
+      {[["courses","Courses"],["about","About Us"]].map(([p,l])=><button key={p} onClick={()=>{setPage(p);setMob(false);}} style={{padding:"10px 14px",borderRadius:8,border:"none",background:"transparent",color:G,fontSize:14,cursor:"pointer",textAlign:"left"}}>{l}</button>)}
       {user&&<button onClick={()=>{setPage("dashboard");setMob(false);}} style={{padding:"10px 14px",borderRadius:8,border:"none",background:"transparent",color:G,fontSize:14,cursor:"pointer",textAlign:"left"}}>Dashboard</button>}
       {requireRole(user,"admin")&&<button onClick={()=>{setPage("admin");setMob(false);}} style={{padding:"10px 14px",borderRadius:8,border:"none",background:"transparent",color:R,fontSize:14,cursor:"pointer",textAlign:"left"}}>Admin</button>}
       {user?<button onClick={()=>{dispatch({type:"LOGOUT"});setPage("home");setMob(false);}} style={{padding:"10px 14px",borderRadius:8,border:"none",background:"transparent",color:G,fontSize:14,cursor:"pointer",textAlign:"left"}}>Logout</button>:<button onClick={()=>{setShowAuth(true);setMob(false);}} style={{padding:"10px",borderRadius:10,background:P,border:"none",color:"#fff",fontSize:14,fontWeight:600,cursor:"pointer"}}>Start Free</button>}
@@ -450,7 +450,7 @@ function HomePage({setPage,setShowAuth}){
       <section style={{background:`linear-gradient(135deg,${PL},#f0fdf4)`,borderRadius:20,padding:"40px 36px",marginBottom:48,display:"flex",gap:32,alignItems:"center",flexWrap:"wrap"}}>
         <div style={{width:80,height:80,borderRadius:20,background:`linear-gradient(135deg,${P},${PD})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:30,fontWeight:700,flexShrink:0}}>S</div>
         <div style={{flex:1,minWidth:200}}>
-          <div style={{fontSize:11,fontWeight:500,color:P,letterSpacing:1,textTransform:"uppercase",marginBottom:6}}>From the Founder</div>
+          <div style={{fontSize:11,fontWeight:500,color:P,letterSpacing:1,textTransform:"uppercase",marginBottom:6}}>From the About Us</div>
           <blockquote style={{fontSize:18,fontWeight:500,margin:"0 0 8px"}}>"I built Vestigia because I know what it takes to grow from a tier-2 city. Now I'm sharing everything."</blockquote>
           <div style={{fontSize:13,color:G}}>Shobhit Shubham Saxena · AI, Product & TPM Leader · Founded 2014</div>
         </div>
@@ -505,21 +505,30 @@ function CoursesPage(){
 
 /* ─── ABOUT ─────────────────────────────────────────────── */
 function AboutPage({setPage,setShowAuth}){
+  function AboutPage({setPage,setShowAuth}){
   const tl=[{year:"2014",title:"Founded Vestigia",desc:"Software & web dev for tier-2 cities",c:P},{year:"2018",title:"Scaled to 50+ clients",desc:"SMBs, startups and government orgs",c:T},{year:"2021",title:"Pivoted to AI & EdTech",desc:"Recognized the talent gap in emerging India",c:A},{year:"2024",title:"Vestigia Reborn",desc:"AI-first LMS + personal brand platform",c:P},{year:"2025",title:"10,000+ Learners",desc:"India's leading founder-led EdTech platform",c:T}];
   return<div style={{maxWidth:860,margin:"0 auto",padding:"40px 24px"}}>
     <div style={{textAlign:"center",marginBottom:48}}>
-      <div style={{width:90,height:90,borderRadius:22,background:`linear-gradient(135deg,${P},${PD})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:40,fontWeight:700,margin:"0 auto 20px"}}>S</div>
-      <h1 style={{fontSize:26,fontWeight:500,marginBottom:6}}>Shobhit Shubham Saxena</h1>
-      <div style={{fontSize:14,color:G,marginBottom:14}}>Founder, Vestigia Technologies · AI, Product & TPM Leader</div>
-      <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}}>{["AI Strategy","Product Management","TPM","EdTech","Systems Thinking"].map(t=><Tag key={t} c={P} bg={PL}>{t}</Tag>)}</div>
+      <img src="/logo.png" alt="Vestigia" style={{height:90,width:90,objectFit:"contain",borderRadius:20,margin:"0 auto 20px",display:"block"}}/>
+      <div style={{display:"inline-block",background:`linear-gradient(135deg,${P},${PD})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",fontSize:28,fontWeight:700,marginBottom:8}}>Vestigia Technologies 2.0</div>
+      <div style={{fontSize:16,color:G,marginBottom:6,fontStyle:"italic"}}>The Rebirth of Intelligence</div>
+      <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap",marginTop:14}}>{["AI Solutions","EdTech","Product","TPM","Systems Design"].map(t=><Tag key={t} c={P} bg={PL}>{t}</Tag>)}</div>
     </div>
-    <Card style={{marginBottom:28}}>
-      <div style={{fontSize:13,fontWeight:500,color:P,letterSpacing:1,textTransform:"uppercase",marginBottom:12}}>My Story</div>
-      <p style={{fontSize:14,lineHeight:1.8,color:"#475569",margin:0}}>I grew up in a tier-2 city with big dreams and limited access. I knew the gap wasn't talent — it was opportunity and guidance. In 2014, I founded Vestigia Technologies to empower people in emerging India.</p>
-      <p style={{fontSize:14,lineHeight:1.8,color:"#475569",margin:"12px 0 0"}}>After a decade of building software, I launched Vestigia 2.0 — active, founder-led cohorts with real mentorship, AI-powered learning, and a community that actually shows up.</p>
+    <Card style={{marginBottom:24}}>
+      <div style={{fontSize:13,fontWeight:500,color:P,letterSpacing:1,textTransform:"uppercase",marginBottom:16}}>Our Story</div>
+      <p style={{fontSize:14,lineHeight:1.9,color:"#475569",margin:"0 0 14px"}}>Vestigia Technologies was born in 2014 from a bold vision by <strong>Shobhit Shubham Saxena</strong> — to empower tier-2 and tier-3 cities with the power of digital innovation.</p>
+      <p style={{fontSize:14,lineHeight:1.9,color:"#475569",margin:"0 0 14px"}}>Today, that vision has evolved. Welcome to <strong>Vestigia Technologies 2.0</strong> — a rebirth fueled by Artificial Intelligence, driven by purpose, and built for the future.</p>
+      <p style={{fontSize:14,lineHeight:1.9,color:"#475569",margin:0}}>We are no longer just building software — we are engineering intelligence. From cutting-edge AI solutions to next-generation EdTech platforms and job-ready learning ecosystems, Vestigia is redefining how talent meets technology in an AI-first world.</p>
+    </Card>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:16,marginBottom:24}}>
+      {[["🧠","Engineering Intelligence","Cutting-edge AI solutions built for real-world impact"],["🎓","Future-proof Learning","Next-gen EdTech platforms and job-ready ecosystems"],["🚀","Speed of Thought","Innovation that moves as fast as ideas do"]].map(([icon,title,desc])=><Card key={title}><div style={{fontSize:28,marginBottom:10}}>{icon}</div><div style={{fontSize:14,fontWeight:600,marginBottom:6}}>{title}</div><div style={{fontSize:13,color:G,lineHeight:1.7}}>{desc}</div></Card>)}
+    </div>
+    <Card style={{marginBottom:24,background:`linear-gradient(135deg,${P}11,${PD}08)`}}>
+      <div style={{fontSize:13,fontWeight:500,color:P,letterSpacing:1,textTransform:"uppercase",marginBottom:12}}>Our Mission</div>
+      <p style={{fontSize:15,lineHeight:1.9,color:DARK,margin:0,fontWeight:500}}>To bridge the gap between human potential and machine intelligence — creating powerful, scalable solutions that transform lives, businesses, and communities.</p>
     </Card>
     <div style={{marginBottom:32}}>
-      <h2 style={{fontSize:18,fontWeight:500,marginBottom:20}}>Journey</h2>
+      <h2 style={{fontSize:18,fontWeight:500,marginBottom:20}}>Our Journey</h2>
       {tl.map((t,i)=><div key={t.year} style={{display:"flex",gap:16,marginBottom:20}}>
         <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
           <div style={{width:36,height:36,borderRadius:"50%",background:t.c+"22",color:t.c,fontSize:11,fontWeight:600,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>{t.year.slice(2)}</div>
@@ -528,14 +537,17 @@ function AboutPage({setPage,setShowAuth}){
         <div style={{paddingTop:6,paddingBottom:16}}><div style={{fontSize:14,fontWeight:500}}>{t.title}</div><div style={{fontSize:13,color:G}}>{t.desc}</div></div>
       </div>)}
     </div>
-    <div style={{textAlign:"center",padding:"36px",background:PL,borderRadius:16}}>
-      <div style={{fontSize:18,fontWeight:500,marginBottom:6}}>Learn with me directly</div>
-      <div style={{fontSize:13,color:G,marginBottom:20}}>Live cohorts, real mentorship, a community that pushes you forward</div>
-      <div style={{display:"flex",gap:12,justifyContent:"center"}}><Btn onClick={()=>setPage("courses")}>See My Courses</Btn><Btn variant="outline" onClick={()=>setShowAuth(true)}>Join Free</Btn></div>
+    <div style={{textAlign:"center",padding:"36px",background:`linear-gradient(135deg,${P},${PD})`,borderRadius:16,color:"#fff"}}>
+      <div style={{fontSize:20,fontWeight:700,marginBottom:8}}>This is not an upgrade. This is a transformation.</div>
+      <div style={{fontSize:14,opacity:0.85,marginBottom:6}}>Stay ahead. Stay intelligent. Stay Vestigia.</div>
+      <div style={{fontSize:13,opacity:0.7,marginBottom:24}}>Where ideas become intelligent systems. Where learning becomes future-proof.</div>
+      <div style={{display:"flex",gap:12,justifyContent:"center",flexWrap:"wrap"}}>
+        <button onClick={()=>setPage("courses")} style={{padding:"10px 24px",borderRadius:10,background:"#fff",border:"none",color:P,fontSize:13,fontWeight:600,cursor:"pointer"}}>Explore Courses</button>
+        <button onClick={()=>setShowAuth(true)} style={{padding:"10px 24px",borderRadius:10,background:"transparent",border:"1.5px solid rgba(255,255,255,0.6)",color:"#fff",fontSize:13,fontWeight:600,cursor:"pointer"}}>Join Free</button>
+      </div>
     </div>
   </div>;
 }
-
 /* ─── DASHBOARD ─────────────────────────────────────────── */
 function Dashboard({setPage}){
   const{state,dispatch}=useApp();
@@ -852,7 +864,7 @@ function Footer({setPage}){
   return<footer style={{borderTop:"0.5px solid #e2e8f0",padding:"32px 24px",marginTop:24}}>
     <div style={{maxWidth:1100,margin:"0 auto",display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:24}}>
       <div><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}><div style={{width:28,height:28,borderRadius:7,background:`linear-gradient(135deg,${P},${PD})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontWeight:700,fontSize:13}}>V</div><div style={{fontSize:14,fontWeight:500}}>Vestigia Technologies</div></div><div style={{fontSize:12,color:G,lineHeight:1.7,maxWidth:200}}>Bridging talent and technology. Founded 2014, reborn 2024.</div></div>
-      {[["Platform",["Courses","Dashboard","Live Classes"]],["Company",["About Founder","Blog","Careers"]],["Legal",["Privacy","Terms","Refunds"]]].map(([t,links])=><div key={t}><div style={{fontSize:12,fontWeight:500,marginBottom:10,color:"#1e293b"}}>{t}</div>{links.map(l=><div key={l} style={{fontSize:12,color:G,padding:"3px 0",cursor:"pointer"}}>{l}</div>)}</div>)}
+      {[["Platform",["Courses","Dashboard","Live Classes"]],["Company",["About About Us","Blog","Careers"]],["Legal",["Privacy","Terms","Refunds"]]].map(([t,links])=><div key={t}><div style={{fontSize:12,fontWeight:500,marginBottom:10,color:"#1e293b"}}>{t}</div>{links.map(l=><div key={l} style={{fontSize:12,color:G,padding:"3px 0",cursor:"pointer"}}>{l}</div>)}</div>)}
     </div>
     <div style={{maxWidth:1100,margin:"16px auto 0",paddingTop:16,borderTop:"0.5px solid #e2e8f0",display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:8}}>
       <div style={{fontSize:11,color:G}}>2025 Vestigia Technologies OPC Pvt Ltd.</div>
