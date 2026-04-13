@@ -364,8 +364,7 @@ function Nav({page,setPage,setShowAuth}){
   return<nav style={{position:"sticky",top:0,zIndex:100,background:"rgba(255,255,255,0.97)",backdropFilter:"blur(12px)",borderBottom:"0.5px solid #e2e8f0",padding:"0 24px"}}>
     <div style={{maxWidth:1100,margin:"0 auto",display:"flex",alignItems:"center",gap:8,height:60}}>
       <button onClick={()=>setPage("home")} style={{display:"flex",alignItems:"center",gap:10,background:"none",border:"none",cursor:"pointer",padding:0,flexShrink:0}}>
-        <div style={{width:34,height:34,borderRadius:9,background:`linear-gradient(135deg,${P},${PD})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontWeight:700,fontSize:16}}>V</div>
-        <div style={{lineHeight:1.2,textAlign:"left"}}><div style={{fontSize:14,fontWeight:600,color:DARK}}>Vestigia</div><div style={{fontSize:10,color:G}}>Technologies</div></div>
+<img src="/logo.png" alt="Vestigia" style={{height:38,width:38,objectFit:"contain",borderRadius:8}}/>        <div style={{lineHeight:1.2,textAlign:"left"}}><div style={{fontSize:14,fontWeight:600,color:DARK}}>Vestigia</div><div style={{fontSize:10,color:G}}>Technologies</div></div>
       </button>
       <div style={{flex:1}}/>
       <div style={{display:"flex",alignItems:"center",gap:4}} className="desk-nav">
