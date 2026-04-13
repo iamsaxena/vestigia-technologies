@@ -50,7 +50,7 @@ const SEED=[
   {id:3,title:"Build with Claude API",tag:"AI",mrp:2999,price:0,offerPrice:null,free:true,enrolled:3400,rating:4.7,weeks:4,img:"🧠",color:A,status:"active",maxSeats:100,launch:"2025-01-15",start:"2025-01-15T20:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["API Basics","Prompt Engineering","RAG Systems","Deployment"]},
   {id:4,title:"Data Storytelling for PMs",tag:"Analytics",mrp:4999,price:2499,offerPrice:2499,free:false,enrolled:560,rating:4.8,weeks:5,img:"📊",color:B,status:"upcoming",maxSeats:12,launch:"2025-09-01",start:"2025-09-01T19:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["SQL for PMs","Metrics","Dashboard Design","A/B Testing"]},
   {id:5,title:"Career Acceleration: Tier-2 to Tech",tag:"Career",mrp:1999,price:0,offerPrice:null,free:true,enrolled:5200,rating:4.9,weeks:3,img:"🚀",color:R,status:"active",maxSeats:200,launch:"2025-01-01",start:"2025-01-01T18:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["Resume Reboot","LinkedIn Strategy","Interview Playbook"]},
-  {id:6,title:"GenAI for Non-Technical About Uss",tag:"AI",mrp:3999,price:1999,offerPrice:1999,free:false,enrolled:720,rating:4.7,weeks:4,img:"💡",color:P,status:"upcoming",maxSeats:15,launch:"2025-10-01",start:"2025-10-01T19:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["AI Landscape","Use-case Mapping","Vendor Selection","ROI"]}
+  {id:6,title:"GenAI for Non-Technical Founders",tag:"AI",mrp:3999,price:1999,offerPrice:1999,free:false,enrolled:720,rating:4.7,weeks:4,img:"💡",color:P,status:"upcoming",maxSeats:15,launch:"2025-10-01",start:"2025-10-01T19:00",speaker:"Shobhit Saxena",linkedin:"https://linkedin.com/in/shobhit30",speakerPic:"",modules:["AI Landscape","Use-case Mapping","Vendor Selection","ROI"]}
 ];
 const BLOGS=[
   {title:"Why Tier-2 India is the next EdTech frontier",tag:"EdTech",date:"Mar 28, 2025",read:"5 min"},
@@ -450,7 +450,7 @@ function HomePage({setPage,setShowAuth}){
       <section style={{background:`linear-gradient(135deg,${PL},#f0fdf4)`,borderRadius:20,padding:"40px 36px",marginBottom:48,display:"flex",gap:32,alignItems:"center",flexWrap:"wrap"}}>
         <div style={{width:80,height:80,borderRadius:20,background:`linear-gradient(135deg,${P},${PD})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:30,fontWeight:700,flexShrink:0}}>S</div>
         <div style={{flex:1,minWidth:200}}>
-          <div style={{fontSize:11,fontWeight:500,color:P,letterSpacing:1,textTransform:"uppercase",marginBottom:6}}>From the About Us</div>
+          <div style={{fontSize:11,fontWeight:500,color:P,letterSpacing:1,textTransform:"uppercase",marginBottom:6}}>From the Founder</div>
           <blockquote style={{fontSize:18,fontWeight:500,margin:"0 0 8px"}}>"I built Vestigia because I know what it takes to grow from a tier-2 city. Now I'm sharing everything."</blockquote>
           <div style={{fontSize:13,color:G}}>Shobhit Shubham Saxena · AI, Product & TPM Leader · Founded 2014</div>
         </div>
@@ -505,7 +505,6 @@ function CoursesPage(){
 
 /* ─── ABOUT ─────────────────────────────────────────────── */
 function AboutPage({setPage,setShowAuth}){
-  function AboutPage({setPage,setShowAuth}){
   const tl=[{year:"2014",title:"Founded Vestigia",desc:"Software & web dev for tier-2 cities",c:P},{year:"2018",title:"Scaled to 50+ clients",desc:"SMBs, startups and government orgs",c:T},{year:"2021",title:"Pivoted to AI & EdTech",desc:"Recognized the talent gap in emerging India",c:A},{year:"2024",title:"Vestigia Reborn",desc:"AI-first LMS + personal brand platform",c:P},{year:"2025",title:"10,000+ Learners",desc:"India's leading founder-led EdTech platform",c:T}];
   return<div style={{maxWidth:860,margin:"0 auto",padding:"40px 24px"}}>
     <div style={{textAlign:"center",marginBottom:48}}>
@@ -863,8 +862,8 @@ function AdminPanel(){
 function Footer({setPage}){
   return<footer style={{borderTop:"0.5px solid #e2e8f0",padding:"32px 24px",marginTop:24}}>
     <div style={{maxWidth:1100,margin:"0 auto",display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:24}}>
-      <div><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}><div style={{width:28,height:28,borderRadius:7,background:`linear-gradient(135deg,${P},${PD})`,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontWeight:700,fontSize:13}}>V</div><div style={{fontSize:14,fontWeight:500}}>Vestigia Technologies</div></div><div style={{fontSize:12,color:G,lineHeight:1.7,maxWidth:200}}>Bridging talent and technology. Founded 2014, reborn 2024.</div></div>
-      {[["Platform",["Courses","Dashboard","Live Classes"]],["Company",["About About Us","Blog","Careers"]],["Legal",["Privacy","Terms","Refunds"]]].map(([t,links])=><div key={t}><div style={{fontSize:12,fontWeight:500,marginBottom:10,color:"#1e293b"}}>{t}</div>{links.map(l=><div key={l} style={{fontSize:12,color:G,padding:"3px 0",cursor:"pointer"}}>{l}</div>)}</div>)}
+      <div><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}><img src="/logo.png" alt="Vestigia" style={{height:28,width:28,objectFit:"contain",borderRadius:7}}/><div style={{fontSize:14,fontWeight:500}}>Vestigia Technologies</div></div><div style={{fontSize:12,color:G,lineHeight:1.7,maxWidth:200}}>Bridging talent and technology. Founded 2014, reborn 2024.</div></div>
+      {[["Platform",["Courses","Dashboard","Live Classes"]],["Company",["About Us","Blog","Careers"]],["Legal",["Privacy","Terms","Refunds"]]].map(([t,links])=><div key={t}><div style={{fontSize:12,fontWeight:500,marginBottom:10,color:"#1e293b"}}>{t}</div>{links.map(l=><div key={l} style={{fontSize:12,color:G,padding:"3px 0",cursor:"pointer"}}>{l}</div>)}</div>)}
     </div>
     <div style={{maxWidth:1100,margin:"16px auto 0",paddingTop:16,borderTop:"0.5px solid #e2e8f0",display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:8}}>
       <div style={{fontSize:11,color:G}}>2025 Vestigia Technologies OPC Pvt Ltd.</div>
